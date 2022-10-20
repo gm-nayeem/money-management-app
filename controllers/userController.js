@@ -1,4 +1,5 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt')
+var jwt = require('jsonwebtoken')
 const registerValidator = require('../validator/registerValidator')
 const loginValidator = require('../validator/loginValidator')
 const User = require('../model/User')
@@ -67,7 +68,18 @@ module.exports = {
                     if(!result) {
                         return resourceError(res, "Password Doesn't Match")
                     }
-                    
+
+                    var token = jwt.sign({
+                        _id: user._id,
+                        name: user.name,
+                        email: user.email
+                    }, 'SECRETKEY', {expiresIn: '3h'})
+
+                    res.status(200).json({
+                        message: 'Login Successful',
+                        token: `Bearer ${token}`
+                    })
+
                 });
             })
             .catch(err => serverError(res, err))
