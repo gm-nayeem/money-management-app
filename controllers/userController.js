@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const registerValidator = require('../validator/registerValidator')
 const loginValidator = require('../validator/loginValidator')
 const User = require('../model/User')
+const {serverError, resourceError} = require('../utils/error')
 
 module.exports = {
     registerController(req, res) {
@@ -14,16 +15,12 @@ module.exports = {
             User.findOne({email})
                 .then(user => {
                     if(user) {
-                        return res.status(400).json({
-                            message: 'Email Already Exist'
-                        })
+                        return resourceError(res, 'Email Already Exist') 
                     }
 
                     bcrypt.hash(password, 11, (err, hash) => {
                         if(err) {
-                            return res.status(500).json({
-                                message: 'Server Error Occurred'
-                            })
+                            return serverError(res, err)
                         }
 
                         let user = new User({
@@ -39,25 +36,14 @@ module.exports = {
                                     user
                                 })
                             })
-                            .catch(err => {
-                                res.status(500).json({
-                                    message: 'Server Error Occurred'
-                                })
-                            })
+                            .catch(err => serverError(res, err))
 
                     });
 
                     
                 })
-                .catch(err => {
-                    res.status(500).json({
-                        message: 'Server Error Occurred'
-                    })
-                })
+                .catch(err => serverError(res, err))
         }
-
-
-
     },
 
     loginController(req, res) {
@@ -65,9 +51,25 @@ module.exports = {
         const validate = loginValidator({email, password})
 
         if(!validate.isValid) {
-            return res.status(400).json(validate,errors)
+            return res.status(400).json(validate.errors)
         }
 
-        
+        User.findOne({email})
+            .then(user => {
+                if(!user) {
+                    return resourceError(res, 'User Not Found')
+                }
+
+                bcrypt.compare(password, user.password, function(err, result) {
+                    if(err) {
+                        return serverError(res, err)
+                    }
+                    if(!result) {
+                        return resourceError(res, "Password Doesn't Match")
+                    }
+                    
+                });
+            })
+            .catch(err => serverError(res, err))
     }
 }
