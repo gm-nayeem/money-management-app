@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {register} from '../store/actions/authAction'
 
 class Register extends Component {
-    
+
   state = {
     name: '',
     email: '',
@@ -31,7 +31,7 @@ class Register extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     let { name, email, password, confirmPassword } = this.state
-    this.props.register({name, email, password, confirmPassword})
+    this.props.register({name, email, password, confirmPassword}, this.props.history)
   }
 
   render() {
@@ -120,12 +120,7 @@ class Register extends Component {
   }
 }
 
-let mapStateToProps = state => {
-  return {
-    auth: state.auth
-  }
-}
-export default connect(
-  mapStateToProps, 
-  {register}
-)(Register)
+let mapStateToProps = state => ({
+  auth: state.auth
+})
+export default connect(mapStateToProps, {register})(Register)

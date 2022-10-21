@@ -6,7 +6,20 @@ import reportWebVitals from './reportWebVitals';
 
 import {Provider} from 'react-redux'
 import store from './store'
+import * as Types from './store/actions/types'
+import jwt_decode from "jwt-decode";
 
+const token = localStorage.getItem('auth_token')
+if(token) {
+  const decoded = jwt_decode(token)
+
+  store.dispatch({
+    type: Types.SET_USER,
+    payload: {
+      user: decoded
+    }
+  })
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
