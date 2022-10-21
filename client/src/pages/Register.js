@@ -18,7 +18,7 @@ class Register extends Component {
         error: nextProps.auth.error
       }
     }
-    return null
+    return null;
   }
 
   handleChange = (e) => {
@@ -40,7 +40,7 @@ class Register extends Component {
     return (
       <div className='row'>
         <div className='col-md-6 offset-md-3'>
-          <h1 className='text-center display-4'>Register Here</h1>
+          <h1 className='text-center mb-4 display-4'>Register Here</h1>
           <form onSubmit={this.handleSubmit}>
             <div className='form-group'>
               <label htmlFor='name'>Name: </label>
@@ -124,4 +124,7 @@ const mapStateToProps = state => {
     auth: state.auth
   }
 }
-export default connect(mapStateToProps, {register})(Register)
+export default connect(
+  mapStateToProps, 
+  {register}
+)(Register)
