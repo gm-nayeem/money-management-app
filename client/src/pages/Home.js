@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import {logout} from '../store/actions/authAction'
 
 class Home extends Component {
   render() {
@@ -9,7 +10,12 @@ class Home extends Component {
         <h1>I am Home Page</h1>
         {
           this.props.auth.isAuthenticated ?
-            <Link to='/login'><button className='btn btn-danger'>Logout</button></Link> :
+            <button 
+              className='btn btn-danger'
+              onClick={() => this.props.logout(this.props.history)}
+            >
+              Logout
+            </button>:
             <Link to='/login'> <button className='btn btn-success'>Login</button></Link>
         }
       </div>
@@ -20,5 +26,5 @@ class Home extends Component {
 const mapStateToProps = state => ({
   auth: state.auth
 })
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps, {logout})(Home);
 
