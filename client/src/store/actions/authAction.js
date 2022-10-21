@@ -5,7 +5,7 @@ export const register = user => dispatch => {
 
     Axios.post('/api/users/register', user)
         .then((res) => {
-            console.log(res)
+            
             dispatch({
                 type: Types.USER_ERROR,
                 payload: {
@@ -13,10 +13,11 @@ export const register = user => dispatch => {
                 }
             })
 
-            
+            console.log(res)
            
         })
         .catch(err => {
+            console.log(err.response.data.message)
             dispatch({
                 type: Types.USER_ERROR,
                 payload: {

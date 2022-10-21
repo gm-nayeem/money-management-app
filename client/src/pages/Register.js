@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {register} from '../store/actions/authAction'
 
 class Register extends Component {
+    
   state = {
     name: '',
     email: '',
@@ -119,7 +120,7 @@ class Register extends Component {
   }
 }
 
-const mapStateToProps = state => {
+let mapStateToProps = state => {
   return {
     auth: state.auth
   }
