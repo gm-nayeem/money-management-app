@@ -8,9 +8,11 @@ import {Provider} from 'react-redux'
 import store from './store'
 import * as Types from './store/actions/types'
 import jwt_decode from "jwt-decode";
+import setAuthToken from './utils/setAuthToken'
 
 const token = localStorage.getItem('auth_token')
 if(token) {
+  setAuthToken(token)
   const decoded = jwt_decode(token)
 
   store.dispatch({

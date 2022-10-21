@@ -1,6 +1,7 @@
 import Axios from 'axios'
 import * as Types from '../actions/types'
 import jwt_decode from "jwt-decode";
+import setAuthToken from '../../utils/setAuthToken'
 
 export const register = (user, history) => dispatch => {
     Axios.post('/api/users/register', user)
@@ -31,6 +32,7 @@ export const login = (user, history) => dispatch => {
         .then(res => {
             let token = res.data.token
             localStorage.setItem('auth_token', token)
+            setAuthToken(token)
             var decoded = jwt_decode(token);
 
             dispatch({
