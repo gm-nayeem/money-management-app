@@ -35,7 +35,6 @@ class Login extends Component {
 
   render() {
     const {email, password, error} = this.state
-    console.log(this.props);
 
     return (
       <div className='row'>

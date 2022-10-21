@@ -11,7 +11,7 @@ const validate = (user) => {
 
     if(!user.password) {
         errors.password = 'Please Provide Your Password'
-    } 
+    }
 
     return {
         errors,
