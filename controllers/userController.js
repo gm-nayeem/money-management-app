@@ -91,5 +91,13 @@ module.exports = {
                 });
             })
             .catch(err => serverError(res, err))
+    },
+
+    getAllUser(req, res) {
+        User.find()
+            .then(users => {
+                res.status(200).json(users)
+            })
+            .catch(err => serverError(res, err));
     }
 }

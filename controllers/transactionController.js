@@ -1,6 +1,6 @@
 const Transaction = require('../model/Transaction')
 const User = require('../model/User')
-const serverError = require('../utils/error')
+const {serverError} = require('../utils/error')
 
 module.exports = {
     createTransaction(req, res) {
@@ -13,7 +13,7 @@ module.exports = {
 
         transaction.save() 
             .then(trans => {
-                let updatedUser = {...req.user}
+                let updatedUser = {...req.user._doc}
 
                 if(type === 'income') {
                     updatedUser.balance += amount
@@ -25,12 +25,15 @@ module.exports = {
 
                 updatedUser.transactions.unshift(trans._id)
 
-                User.findByIdAndUpdate(updatedUser._id, {$set: updatedUser})
-
-                res.status(201).json({
-                    message: 'Transaction Created Successfully', 
-                    ...trans
-                });
+                User.findByIdAndUpdate(updatedUser._id, {$set: updatedUser}, {new: true})
+                    .then(result => {
+                        res.status(201).json({
+                            message: 'Transaction Created Successfully', 
+                            ...trans._doc,
+                            user: result
+                        });
+                    })   
+                    .catch(err => serverError(res, err));            
 
             })
             .catch(err => serverError(res, err));
