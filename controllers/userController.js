@@ -27,7 +27,11 @@ module.exports = {
                         let user = new User({
                             name,
                             email,
-                            password: hash
+                            password: hash,
+                            balance: 0,
+                            income: 0,
+                            expense: 0,
+                            transactions: []
                         })
 
                         user.save()
