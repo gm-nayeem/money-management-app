@@ -7,15 +7,17 @@ const {
     deleteTransaction
 } = require('../controllers/transactionController')
 
-router.get('/', getAllTransaction)
+const authenticate = require('../authenticate')
 
-router.post('/', createTransaction)
+router.get('/', authenticate, getAllTransaction)
 
-router.get('/:transactionId', getSingleTransaction)
+router.post('/', authenticate, createTransaction)
 
-router.put('/:transactionId', updateTransaction)
+router.get('/:transactionId', authenticate, getSingleTransaction)
 
-router.delete('/:transactionId', deleteTransaction)
+router.put('/:transactionId', authenticate, updateTransaction)
+
+router.delete('/:transactionId', authenticate, deleteTransaction)
 
 
 module.exports = router;
