@@ -10,7 +10,11 @@ const TransactionSchema = new Schema({
         type: String,
         required: true
     },
-    note: String
+    note: String,
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }
 }, {timestamps: true})
 
 
