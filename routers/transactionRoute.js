@@ -1,14 +1,21 @@
 const router = require('express').Router()
+const {
+    getAllTransaction, 
+    getSingleTransaction, 
+    createTransaction, 
+    updateTransaction, 
+    deleteTransaction
+} = require('../controllers/transactionController')
 
-router.get('/', )
+router.get('/', getAllTransaction)
 
-router.post('/', )
+router.post('/', createTransaction)
 
-router.get('/:transactionId', )
+router.get('/:transactionId', getSingleTransaction)
 
-router.put('/:transactionId', )
+router.put('/:transactionId', updateTransaction)
 
-router.delete('/:transactionId', )
+router.delete('/:transactionId', deleteTransaction)
 
 
 module.exports = router;

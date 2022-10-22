@@ -3,7 +3,7 @@ const User = require('../model/User')
 const serverError = require('../utils/error')
 
 module.exports = {
-    create(req, res) {
+    createTransaction(req, res) {
         const {amount, type, note} = req.body
         let userId = req.user._id
 
@@ -32,6 +32,63 @@ module.exports = {
                     ...trans
                 });
 
+            })
+            .catch(err => serverError(res, err));
+    },
+
+    getAllTransaction(req, res) {
+        Transaction.find()
+            .then(transaction => {
+                if(transaction.length === 0) {
+                    res.status(200).json({
+                        message: 'No Transaction Found'
+                    })
+                } else {
+                    res.status(200).json(transaction)
+                }
+            })
+            .catch(err => serverError(res, err));
+    },
+
+    getSingleTransaction(req, res) {
+        const {transactionId} = req.params
+
+        Transaction.findById(transactionId)
+            .then(transaction => {
+                if(!transaction) {
+                    res.status(200).json({
+                        message: 'No Transaction Found'
+                    })
+                } else {
+                    res.status(200).json(transaction)
+                }
+            })
+            .catch(err => serverError(res, err));
+    },
+
+    updateTransaction(req, res) {
+        const {transactionId} = req.params
+
+        Transaction.findByIdAndUpdate(transactionId, {$set: req.body})
+            .then(result => {
+                res.status(200).json({
+                    message: 'Transaction Updated Successfully',
+                    ...result
+                })
+            })
+            .catch(err => serverError(res, err));
+
+    }, 
+
+    deleteTransaction(req, res) {
+        const {transactionId} = req.params
+
+        Transaction.findByIdAndRemove(transactionId)
+            .then(result => {
+                res.status(200).json({
+                    message: 'Transaction Deleted Successfully',
+                    ...result
+                })
             })
             .catch(err => serverError(res, err));
     }
