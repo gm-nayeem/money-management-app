@@ -72,8 +72,12 @@ module.exports = {
                     var token = jwt.sign({
                         _id: user._id,
                         name: user.name,
-                        email: user.email
-                    }, 'SECRETKEY', {expiresIn: '3h'})
+                        email: user.email,
+                        balance: user.balance,
+                        income: user.income,
+                        expense: user.expense,
+                        transactions: user.transactions
+                    }, 'SECRETKEY', {expiresIn: '1h'})
 
                     res.status(200).json({
                         message: 'Login Successful',

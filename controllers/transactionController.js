@@ -23,7 +23,7 @@ module.exports = {
                     updatedUser.expense += amount 
                 }
 
-                updatedUser.transaction.unshift(trans._id)
+                updatedUser.transactions.unshift(trans._id)
 
                 User.findByIdAndUpdate(updatedUser._id, {$set: updatedUser})
 
