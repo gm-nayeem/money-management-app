@@ -39,7 +39,12 @@ class UpdateTransaction extends Component {
         e.preventDefault()
         console.log('Update Transaction')
         this.props.updateTransaction(this.props.transaction._id, this.state)
-        this.props.closeModal()
+        this.props.updateCloseModal()
+
+        this.setState({
+            amount: 0,
+            note: ''
+        })
     }
 
     render() {

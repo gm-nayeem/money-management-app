@@ -32,7 +32,7 @@ class CreateTransaction extends Component {
     handleSubmit = (e) => {
         e.preventDefault()
         this.props.addNewTransaction(this.state)
-        console.log('Add New Transactios')
+        this.props.closeModal()
 
         this.setState({
             amount: 0,
