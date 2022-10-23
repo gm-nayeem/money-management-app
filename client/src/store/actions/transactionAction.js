@@ -4,11 +4,11 @@ import * as Types from './types'
 
 export const loadTransactions = () => dispatch => {
     Axios.get('/api/transactions')
-        .then(res => {
+        .then(response => {
             dispatch({
                 type: Types.LOAD_TRANSACTION,
                 payload: {
-                    transactions: res.data
+                    transactions: response.data
                 }
             })
         })
