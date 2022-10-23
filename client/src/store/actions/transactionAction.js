@@ -3,7 +3,7 @@ import Axios  from "axios"
 import * as Types from './types'
 
 export const loadTransactions = () => dispatch => {
-    Axios.get('/api/transactions')
+    Axios.get('/api/transactions/')
         .then(response => {
             dispatch({
                 type: Types.LOAD_TRANSACTION,
@@ -19,7 +19,7 @@ export const loadTransactions = () => dispatch => {
 
 
 export const addNewTransaction = transaction => dispatch => {
-    Axios.post('/api/transactions', transaction)
+    Axios.post('/api/transactions/', transaction)
         .then(response => {
             dispatch({
                 type: Types.CREATE_TRANSACTION,
@@ -47,3 +47,18 @@ export const removeTransaction = id => dispatch => {
             console.log(err)
         });
 }
+
+export const updateTransaction = (id, transaction) => dispatch => [
+    Axios.put(`/api/transactions/${id}`, transaction)
+        .then(response => {
+            dispatch({
+                type: Types.UPDATE_TRANSACTION,
+                payload: {
+                    transaction: response.data.transaction
+                }
+            })
+        })
+        .catch(err => {
+            console.log(err)
+        })
+]

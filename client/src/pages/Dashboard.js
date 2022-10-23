@@ -3,11 +3,14 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import { loadTransactions, removeTransaction } from '../store/actions/transactionAction'
 import CreateTransaction from '../components/transactions/CreateTransaction'
+import UpdateTransaction from '../components/transactions/UpdateTransaction'
 
 class Dashboard extends Component {
 
     state = {
-        modalIsOpen: false
+        modalIsOpen: false,
+        modalIsUpdate: false,
+        id: ''
     }
 
     openModal = () => {
@@ -19,6 +22,20 @@ class Dashboard extends Component {
     closeModal = () => {
         this.setState({
             modalIsOpen: false
+        })
+    }
+
+    updateOpenModal = (id) => {
+        this.setState({
+            modalIsUpdate: true,
+            id
+        })
+    }
+
+    updateCloseModal = () => {
+        this.setState({
+            modalIsUpdate: false,
+            id: ''
         })
     }
 
@@ -61,11 +78,27 @@ class Dashboard extends Component {
                             <p>Type: {transaction.type}</p>
                             <p>Amount: {transaction.amount}</p>
                             <p>Note: {transaction.note}</p>
+
+                            {
+                                this.state.id === transaction._id ?
+                                    <UpdateTransaction 
+                                        modalIsUpdate={this.state.modalIsUpdate}
+                                        updateCloseModal={this.updateCloseModal}
+                                        transaction={transaction}
+                                    /> : 
+                                    null
+                            }
                             <button 
                                 className='btn btn-danger'
                                 onClick={() => this.props.removeTransaction(transaction._id)}
                             >
                                 Remove
+                            </button>
+                            <button 
+                                className='btn btn-success mx-2'
+                                onClick={() => this.updateOpenModal(transaction._id)}
+                            >
+                                Update
                             </button>
                         </li>
                     ))
