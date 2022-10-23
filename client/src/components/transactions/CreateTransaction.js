@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Modal from 'react-modal'
+import {connect} from 'react-redux'
+import { addNewTransaction } from '../../store/actions/transactionAction'
 
 const customStyles = {
     content: {
@@ -29,6 +31,14 @@ class CreateTransaction extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
+        this.props.addNewTransaction(this.state)
+        console.log('Add New Transactios')
+
+        this.setState({
+            amount: 0,
+            type: '',
+            note: ''
+        })
     }
 
     render() {
@@ -84,5 +94,4 @@ class CreateTransaction extends Component {
     }
 }
 
-
-export default CreateTransaction
+export default connect(null, {addNewTransaction})(CreateTransaction)

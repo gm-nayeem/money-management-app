@@ -5,7 +5,14 @@ const transactionReducer = (state=[], action) => {
         case Types.LOAD_TRANSACTION: {
             return action.payload.transactions
         }
-        default: return state
+
+        case Types.CREATE_TRANSACTION: {
+            let transactions = [...state]
+            transactions.unshift(action.payload.transaction)
+            return transactions
+        }
+
+        default: return state;
     }
 }
 
