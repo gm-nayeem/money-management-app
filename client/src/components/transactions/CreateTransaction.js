@@ -43,7 +43,7 @@ class CreateTransaction extends Component {
 
     render() {
         const {amount, note} = this.state;
-
+        console.log(amount);
         return (
             <Modal
                 isOpen={this.props.modalIsOpen}
@@ -87,7 +87,7 @@ class CreateTransaction extends Component {
                             onChange={this.handleChange}
                         />
                     </div>
-                    <button className='btn btn-primary'>Submit</button>
+                    <button type='submit' className='btn btn-primary'>Submit</button>
                 </form>
             </Modal>
         )

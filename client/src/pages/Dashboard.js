@@ -35,18 +35,20 @@ class Dashboard extends Component {
             <h1 className='text-center'>Welcome {auth.user.name}</h1>
             <p className='text-center'>Your Email is <strong style={{color: "green"}}>{auth.user.email}</strong></p>
             
+            
             <div className='text-center'>
-                <button
-                    className='btn btn-primary my-4'
-                    onClick={this.openModal}
-                >
-                    Create New Transaction
-                </button>
-                <CreateTransaction 
-                    modalIsOpen={this.state.modalIsOpen}
-                    closeModal={this.closeModal}
-                />
+            <button
+                className='btn btn-primary my-4'
+                onClick={this.openModal}
+            >
+                Create New Transaction
+            </button>
+            <CreateTransaction 
+                modalIsOpen={this.state.modalIsOpen}
+                closeModal={this.closeModal}
+            />
             </div>
+            
 
             <h2 className='mb-3'>Transactions: </h2>
             <ul className='list-group'>
