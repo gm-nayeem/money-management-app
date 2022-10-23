@@ -61,6 +61,7 @@ class Dashboard extends Component {
                             <p>Type: {transaction.type}</p>
                             <p>Amount: {transaction.amount}</p>
                             <p>Note: {transaction.note}</p>
+                            <button className='btn btn-danger'>Remove</button>
                         </li>
                     ))
                 }
