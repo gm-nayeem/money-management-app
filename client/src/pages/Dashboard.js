@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import {connect} from 'react-redux'
-import { loadTransactions } from '../store/actions/transactionAction'
+import { loadTransactions, removeTransaction } from '../store/actions/transactionAction'
 import CreateTransaction from '../components/transactions/CreateTransaction'
 
 class Dashboard extends Component {
@@ -61,7 +61,12 @@ class Dashboard extends Component {
                             <p>Type: {transaction.type}</p>
                             <p>Amount: {transaction.amount}</p>
                             <p>Note: {transaction.note}</p>
-                            <button className='btn btn-danger'>Remove</button>
+                            <button 
+                                className='btn btn-danger'
+                                onClick={() => this.props.removeTransaction(transaction._id)}
+                            >
+                                Remove
+                            </button>
                         </li>
                     ))
                 }
@@ -77,4 +82,4 @@ const mapStateToProps = (state) => ({
     transactions: state.transactions
 })
 
-export default connect(mapStateToProps, {loadTransactions})(Dashboard);
+export default connect(mapStateToProps, {loadTransactions, removeTransaction})(Dashboard);
