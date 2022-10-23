@@ -11,12 +11,13 @@ class Dashboard extends Component {
 
   render() {
     const {auth, transactions} = this.props
-    console.log(transactions);
+
     return (
-      <div className='row'>
+      <div className='row mt-3'>
         <div className='col-md-8 offset-md-2'>
-            <h1>Welcome {auth.user.name}</h1>
-            <p>Your Email is {auth.user.email}</p>
+            <h1 className='text-center'>Welcome {auth.user.name}</h1>
+            <p className='text-center'>Your Email is <strong style={{color: "green"}}>{auth.user.email}</strong></p>
+            
             <br/>
             <h2>Transactions: </h2>
             <ul className='list-group'>
@@ -28,6 +29,7 @@ class Dashboard extends Component {
                         >
                             <p>Type: {transaction.type}</p>
                             <p>Amount: {transaction.amount}</p>
+                            <p>Note: {transaction.note}</p>
                         </li>
                     ))
                 }
