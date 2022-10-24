@@ -16,7 +16,7 @@ class Register extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     if(JSON.stringify(nextProps.auth.error) !== JSON.stringify(prevState.error)){
       return {
-        error: nextProps.auth.error
+        error: nextProps.auth.error.message
       }
     }
     return null;
@@ -36,7 +36,6 @@ class Register extends Component {
 
   render() {
     let { name, email, password, confirmPassword, error } = this.state
-    console.log(this.props);
 
     return (
       <div className='row'>
@@ -111,7 +110,7 @@ class Register extends Component {
                 </div>
               }
             </div>
-            <Link to='/login'>Already Have An Account? Login Here</Link>
+            <Link to='/login' style={{textDecoration: 'none'}}>Already have an Account? Login here</Link>
             <button type='submit' className='btn btn-primary my-3 d-block'>Register</button>
           </form>
         </div>

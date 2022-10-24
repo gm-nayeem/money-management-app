@@ -41,11 +41,11 @@ export const login = (user, history) => dispatch => {
                     user: decoded
                 }
             })
-            console.log(res.data.message)
+            //console.log(res.data)
             history.push('/')
         })
         .catch(err => {
-            console.log(err.response.data.message)
+            //console.log(err.response.data.message)
             dispatch({
                 type: Types.USER_ERROR,
                 payload: {

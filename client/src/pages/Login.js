@@ -13,7 +13,7 @@ class Login extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     if(JSON.stringify(nextProps.auth.error) !== JSON.stringify(prevState.error)){
       return {
-        error: nextProps.auth.error
+        error: nextProps.auth.error.message
       }
     }
     return null;
@@ -27,6 +27,7 @@ class Login extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
+
     this.props.login({
       email: this.state.email,
       password: this.state.password
@@ -79,7 +80,7 @@ class Login extends Component {
                 </div>
               }
             </div>
-            <Link to='/register'>Don't Have An Account? Register Here</Link>
+            <Link to='/register' style={{textDecoration: 'none'}}>Don't have an Account? Register here</Link>
             <button type='submit' className='btn btn-primary my-3 d-block'>Login</button>
           </form>
         </div>

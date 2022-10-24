@@ -10,7 +10,7 @@ const navStyle = {
 class Navigation extends Component {
   render() {
     return (
-        <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
+        <nav className='navbar navbar-expand-md navbar-dark bg-dark'>
             <Link to='/' style={navStyle}>
                 <span className='mx-4 navbar-brand'>Money App</span>
             </Link>
