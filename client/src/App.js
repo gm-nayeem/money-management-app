@@ -8,10 +8,13 @@ import Register from './pages/Register'
 import Login from './pages/Login'
 import Test from './pages/Error'
 import Dashboard from './pages/Dashboard'
+import Navigation from './components/navigation/Navigation'
+
 
 function App() {
   return (
     <BrowserRouter>
+      <Navigation/>
       <div className='container'>
         <Routes>
           <Route path='/' element={<Home />} />
