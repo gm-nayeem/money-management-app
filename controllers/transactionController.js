@@ -16,11 +16,11 @@ module.exports = {
                 let updatedUser = {...req.user._doc}
 
                 if(type === 'income') {
-                    updatedUser.balance += amount
-                    updatedUser.income += amount 
+                    updatedUser.balance = (updatedUser.balance + Number(amount))
+                    updatedUser.income = (updatedUser.income + Number(amount ))
                 } else if(type === 'expense') {
-                    updatedUser.balance -= amount
-                    updatedUser.expense += amount 
+                    updatedUser.balance = (updatedUser.balance - Number(amount))
+                    updatedUser.expense = (updatedUser.expense + Number(amount))
                 }
 
                 updatedUser.transactions.unshift(trans._id)
@@ -43,13 +43,12 @@ module.exports = {
         let {_id} = req.user
         Transaction.find({author: _id})
             .then(transaction => {
-                if(transaction.length === 0) {
-                    res.status(200).json({
-                        message: 'No Transaction Found'
-                    })
-                } else {
-                    res.status(200).json(transaction)
-                }
+                // if(transaction.length === 0) {
+                //     res.status(200).json({
+                //         message: 'No Transaction Found'
+                //     })
+                // } 
+                res.status(200).json(transaction)
             })
             .catch(err => serverError(res, err));
     },
@@ -73,11 +72,11 @@ module.exports = {
     updateTransaction(req, res) {
         const {transactionId} = req.params
 
-        Transaction.findByIdAndUpdate(transactionId, {$set: req.body})
+        Transaction.findOneAndUpdate({_id: transactionId}, {$set: req.body}, {new: true})
             .then(result => {
                 res.status(200).json({
                     message: 'Transaction Updated Successfully',
-                    ...result
+                    transaction: result
                 })
             })
             .catch(err => serverError(res, err));
@@ -87,11 +86,11 @@ module.exports = {
     deleteTransaction(req, res) {
         const {transactionId} = req.params
 
-        Transaction.findByIdAndRemove(transactionId)
+        Transaction.findOneAndDelete({_id: transactionId})
             .then(result => {
                 res.status(200).json({
                     message: 'Transaction Deleted Successfully',
-                    ...result
+                    ...result._doc
                 })
             })
             .catch(err => serverError(res, err));
